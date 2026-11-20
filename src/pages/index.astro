@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { withBase } from '../lib/url';
+const s = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const ld = { '@context': 'https://schema.org', '@type': 'Organization', name: 'AI Virtual Assistant Co', url: new URL(withBase(''), Astro.site).toString() };
+---
+<Base title="AI-assisted virtual assistant for small businesses" description="AI Virtual Assistant Co offers AI-assisted inbox drafts, meeting notes, research, CRM updates and document cleanup for small businesses. Request a quote." path="" jsonLd={[ld]}>
+<section class="hero"><div class="wrap"><span class="eyebrow">AI-assisted virtual assistant</span>
+<h1>Admin help for small businesses, prepared with AI</h1>
+<p class="lede">Inbox drafts, meeting notes, research, CRM updates and document cleanup. Tell us what you need and we will send you a quote.</p>
+<a class="btn" href={withBase('contact/')}>Request a quote</a><a class="btn alt" href={withBase('services/')}>See services</a></div></section>
+<div class="wrap page-body"><h2>What we help with</h2>
+<div class="grid">{s.map((e) => <div class="card"><h3>{e.data.name}</h3><p>{e.data.summary}</p><a href={withBase(`services/${e.id}/`)}>Details</a> · <a href={withBase('contact/')}>Request a quote</a></div>)}</div>
+<h2>Plainly stated</h2>
+<ul class="read"><li>The work is AI-assisted. See <a href={withBase('disclosure/')}>Disclosure</a>.</li><li>No prices are published; each request is quoted individually.</li><li>This site only collects enquiries. You cannot pay here.</li></ul></div></Base>

@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/url';
+import { faqLd } from '../../lib/faq';
+export async function getStaticPaths() {
+  return (await getCollection('services')).map((e) => ({ params: { slug: e.id }, props: { e } }));
+}
+const { e } = Astro.props; const d = e.data;
+const { Content } = await render(e);
+---
+<Base title={d.title} description={d.description} path={`services/${e.id}/`} jsonLd={[faqLd(d.faq)]}>
+<div class="wrap read page-body">
+<p class="crumbs"><a href={withBase('services/')}>Services</a> / {d.name}</p>
+<h1>{d.name}</h1><p class="lede">{d.summary}</p>
+<h2>Examples of what this covers</h2><ul>{d.examples.map((x) => <li>{x}</li>)}</ul>
+<h2>What you provide</h2><ul>{d.youProvide.map((x) => <li>{x}</li>)}</ul>
+<h2>Limits to know about</h2><ul>{d.limits.map((x) => <li>{x}</li>)}</ul>
+<h2>Questions</h2>{d.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+<div class="notice"><Content /></div>
+<p><a class="btn" href={withBase('contact/')}>Request a quote</a><a class="btn alt" href={withBase('services/')}>All services</a></p>
+<p class="muted small">Last updated: {d.lastUpdated.toISOString().slice(0,10)}. This page makes no performance or pricing claims.</p>
+</div></Base>
