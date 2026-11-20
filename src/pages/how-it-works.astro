@@ -1,0 +1,8 @@
+---
+import Base from '../layouts/Base.astro';
+import { withBase } from '../lib/url';
+---
+<Base title="How it works" description="How an AI Virtual Assistant Co request works: send an enquiry, receive a quote, agree scope, then review the AI-assisted work yourself." path="how-it-works/">
+<div class="wrap read page-body"><h1>How it works</h1>
+<ol><li><strong>Send an enquiry.</strong> Describe the task on the <a href={withBase("contact/")}>Request a quote</a> page.</li><li><strong>Receive a quote.</strong> We reply with scope and a quote for your request. No price is published in advance.</li><li><strong>Agree scope.</strong> Including what access you grant, if any, and what is off limits.</li><li><strong>AI-assisted work.</strong> Drafts, summaries and clean-ups are produced with AI tools.</li><li><strong>You review.</strong> You see the output and decide what to use.</li></ol><p class="notice">This page describes the intended process for a v1 service. It makes no promises about speed or outcomes.</p>
+</div></Base>

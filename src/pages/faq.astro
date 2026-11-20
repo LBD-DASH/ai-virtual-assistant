@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { generalFaq, faqLd } from '../lib/faq';
+const svc = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const all = [...generalFaq, ...svc.flatMap((s) => s.data.faq)];
+---
+<Base title="Frequently asked questions" description="Answers about AI Virtual Assistant Co: how the AI-assisted service works, quotes instead of prices, privacy and what the site does and does not do." path="faq/" jsonLd={[faqLd(all)]}>
+<div class="wrap read page-body"><h1>Frequently asked questions</h1>
+{all.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</div></Base>
