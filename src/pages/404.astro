@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import { withBase } from '../lib/url';
+---
+<Base title="Page not found" description="This page does not exist. Return to the AI Virtual Assistant Co home page or browse the services." path="404/">
+<div class="wrap read page-body"><h1>Page not found</h1><p><a href={withBase('')}>Back to home</a> or see the <a href={withBase('services/')}>services</a>.</p></div>
+</Base>
