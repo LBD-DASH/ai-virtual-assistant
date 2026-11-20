@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { withBase } from '../../lib/url';
+const s = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Services overview" description="Five AI-assisted virtual assistant services for small businesses: inbox drafts, meeting notes, research, CRM updates and document cleanup." path="services/">
+<div class="wrap page-body"><h1>Services</h1><p class="lede read">Five AI-assisted services for small businesses. Every offer is quoted individually: no prices are published.</p>
+<div class="grid">{s.map((e) => <div class="card"><h3>{e.data.name}</h3><p>{e.data.summary}</p><a href={withBase(`services/${e.id}/`)}>Details</a> · <a href={withBase('contact/')}>Request a quote</a></div>)}</div>
+<p>Not sure which fits? <a href={withBase('how-it-works/')}>See how it works</a>.</p></div></Base>
